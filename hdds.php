@@ -12,11 +12,12 @@
 <?
 $str = '';
 foreach (array(
-	167,
-	768,
-	940,
-	1279,
-	910
+	167, // sata 74-160
+	768, // sata 250-320
+	940, // sata 450-800
+	1279, // sata 1tb and over
+	910, // ssd 30-100
+	1427, // ssd 120-256
 	) as $sub)
 	$str.=file_get_contents("http://www.overclockers.co.uk/productlist.php?groupid=701&catid=14&subid={$sub}");
 
