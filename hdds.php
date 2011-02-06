@@ -32,11 +32,18 @@ function table($str) {
 	?>
 	<table><tr><th>Size (GB)</th><th>Cheapest</th><th>Average</th><th>Cheapest per GB</th><th>Average per GB</th><th>Sample size</th></tr>
 	<?
-	preg_match_all('/<a href="showproduct.*?([0-9.]+)((?:T|G))B.*?<span class="incVat">\(&pound;(\d+\.\d+)/s', $str, $regs);
+	preg_match_all('/<a href="(showproduct[^"]+?)" title="(?:View more details for )?([^"]*?)".*?([0-9.]+)((?:T|G))B.*?<span class="incVat">\(&pound;(\d+\.\d+)/s', $str, $regs);
 
 	$bits = array();
-	foreach ($regs[1] as $ind => $numpart)
-		$bits[($regs[2][$ind] == 'T' ? 1024 : 1) * $numpart][] = $regs[3][$ind];
+	$url = array();
+	$name = array();
+	foreach ($regs[3] as $ind => $numpart) {
+		$key = ($regs[4][$ind] == 'T' ? 1024 : 1) * $numpart;
+		$price = $regs[5][$ind] * 1.2;
+		$bits[$key][] = $price;
+		$url[$key][$price][] = $regs[1][$ind];
+		$name[$key][$price][] = $regs[2][$ind];
+	}
 
 	ksort($bits);
 	$bestavg = $bestsiz = 1337;
@@ -47,13 +54,19 @@ function table($str) {
 			$bestsiz = $size; 
 		}
 
-	foreach ($bits as $size => $drives)
+	foreach ($bits as $size => $drives) {
+		$cheap = min($drives);
 		echo "<tr" . ($size == $bestsiz ? ' class="hi"' : '') . ">" .
-			"<td>$size</td><td>" . price(min($drives)) . "</td>" .
+			"<td>$size</td>" .
+			"<td><a " .
+				"href=\"http://www.overclockers.co.uk/{$url[$size][$cheap][0]}\" " .
+				"title=\"{$name[$size][$cheap][0]}\">" .
+				price($cheap) . "</a></td>" .
 			"<td>" . price(average($drives)) . "</td>" .
-			"<td>" . price(min($drives)/$size, 3) . "</td>" .
+			"<td>" . price($cheap/$size, 3) . "</td>" .
 			"<td>" . price(average($drives)/$size,3) . "</td>" .
 			"<td>" . count($drives) . "</td></tr>\n";
+	}
 
 	echo "</table>";
 }
