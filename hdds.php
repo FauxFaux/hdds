@@ -3,11 +3,15 @@
   <style type="text/css">
    td,th { border: 1px solid black; padding: .4em }
    td { text-align: right }
-   tr.hi td { background-color: #cfc }
+   tr.hi td, td.hi, span.hi { background-color: #cfc }
+   .mid { background-color: #ffc }
+   .low { background-color: #fcc }
+   span { padding: 1ex }
   </style>
  </head>
 <body>
-<p>Data sourced from <a href="http://www.overclockers.co.uk/">Overclockers</a>.</p>
+<p>Open <a href="http://git.goeswhere.com/?p=hdds.git;a=summary">source</a>.  Data sourced from <a href="http://www.overclockers.co.uk/">Overclockers</a>.</p>
+<p>Values within <span class="hi">1%</span>, <span class="mid">5%</span> and <span class="low">10%</span> of the best are marked.  Hover links for names.</p>
 <?
 foreach (array( 'rotary' =>
 	array(
@@ -54,8 +58,19 @@ function table($str) {
 			$bestsiz = $size; 
 		}
 
+	$min = 9000;
+	$max = 0;
+	foreach ($bits as $size => $drives) {
+		$p = min($drives)/$size;
+		if ($p < $min)
+			$min = $p;
+		if ($p > $max)
+			$max = $p;
+	}
+
 	foreach ($bits as $size => $drives) {
 		$cheap = min($drives);
+		$rat = ($cheap/$size - $min)/$max;
 		echo "<tr" . ($size == $bestsiz ? ' class="hi"' : '') . ">" .
 			"<td>$size</td>" .
 			"<td><a " .
@@ -63,7 +78,7 @@ function table($str) {
 				"title=\"{$name[$size][$cheap][0]}\">" .
 				price($cheap) . "</a></td>" .
 			"<td>" . price(average($drives)) . "</td>" .
-			"<td>" . price($cheap/$size, 3) . "</td>" .
+			"<td class=\"" . ($rat < 0.01 ? 'hi' : ($rat < 0.05 ? 'mid' : ($rat < 0.10 ? 'low' : '')))  . "\">" . price($cheap/$size, 3) . "</td>" .
 			"<td>" . price(average($drives)/$size,3) . "</td>" .
 			"<td>" . count($drives) . "</td></tr>\n";
 	}
