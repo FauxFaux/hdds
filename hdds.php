@@ -10,8 +10,13 @@
   </style>
  </head>
 <body>
+<?
+$vhi = 1;
+$vmid = 5;
+$vlow = 25;
+?>
 <p>Open <a href="http://git.goeswhere.com/?p=hdds.git;a=summary">source</a>.  Data sourced from <a href="http://www.overclockers.co.uk/">Overclockers</a>.</p>
-<p>Values within <span class="hi">1%</span>, <span class="mid">5%</span> and <span class="low">10%</span> of the best are marked.  Hover links for names.</p>
+<p>Values within <span class="hi"><?=$vhi?>%</span>, <span class="mid"><?=$vmid?>%</span> and <span class="low"><?=$vlow?>%</span> of the best are marked.  Hover links for names.</p>
 <?
 foreach (array( 'rotary' =>
 	array(
@@ -33,6 +38,7 @@ foreach (array( 'rotary' =>
 }
 
 function table($str) {
+	global $vlow,$vmid,$vhi;
 	?>
 	<table><tr><th>Size (GB)</th><th>Cheapest</th><th>Average</th><th>Cheapest per GB</th><th>Average per GB</th><th>Sample size</th></tr>
 	<?
@@ -70,7 +76,7 @@ function table($str) {
 
 	foreach ($bits as $size => $drives) {
 		$cheap = min($drives);
-		$rat = ($cheap/$size - $min)/$max;
+		$rat = ($cheap/$size) / $min;
 		echo "<tr" . ($size == $bestsiz ? ' class="hi"' : '') . ">" .
 			"<td>$size</td>" .
 			"<td><a " .
@@ -78,7 +84,11 @@ function table($str) {
 				"title=\"{$name[$size][$cheap][0]}\">" .
 				price($cheap) . "</a></td>" .
 			"<td>" . price(average($drives)) . "</td>" .
-			"<td class=\"" . ($rat < 0.01 ? 'hi' : ($rat < 0.05 ? 'mid' : ($rat < 0.10 ? 'low' : '')))  . "\">" . price($cheap/$size, 3) . "</td>" .
+			"<td class=\"" .
+				($rat < (1 + $vhi/100.0) ? 'hi' : 
+					($rat < (1 + $vmid/100.0) ? 'mid' : 
+						($rat < (1 + $vlow/100.0) ? 'low' : '')))  . "\">" .
+				price($cheap/$size, 3) . "</td>" .
 			"<td>" . price(average($drives)/$size,3) . "</td>" .
 			"<td>" . count($drives) . "</td></tr>\n";
 	}
