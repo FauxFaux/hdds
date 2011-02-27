@@ -50,7 +50,7 @@ function table($str) {
 	$url = array();
 	$name = array();
 	foreach ($regs[3] as $ind => $numpart) {
-		$key = ($regs[4][$ind] == 'T' ? 1024 : 1) * $numpart;
+		$key = ($regs[4][$ind] == 'T' ? 1000 : 1) * $numpart;
 		$price = $regs[5][$ind] * 1.2;
 		$bits[$key][] = $price;
 		$url[$key][$price][] = $regs[1][$ind];
