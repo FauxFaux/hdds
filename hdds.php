@@ -20,19 +20,21 @@ $vlow = 25;
 <?
 foreach (array( 'rotary' =>
 	array(
-		167, // sata 74-160
-		768, // sata 250-320
-		940, // sata 450-800
-		1279, // sata 1tb and over
+		1952, // sata 6gbps
+		1662, // sata 74-160
+		1663, // sata 250-320
+		1664, // sata 450-800
+		1665, // sata 1000-1500
+		1954, // sata 2000-
 	), 'ssd' => array (
-		910, // ssd 30-100
-		1427, // ssd 120-256
+		1668, // ssd 30-100
+		1669, // ssd 120-480
 	)
 ) as $label => $table) {
 	echo "<h2>$label</h2>";
 	$str = '';
 	foreach ($table as $sub) 
-		$str.=file_get_contents("http://www.overclockers.co.uk/productlist.php?groupid=701&catid=14&subid={$sub}");
+		$str.=file_get_contents("http://www.overclockers.co.uk/productlist.php?groupid=701&catid=1660&subid={$sub}");
 
 	table($str);
 }
