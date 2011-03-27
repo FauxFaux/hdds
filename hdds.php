@@ -18,6 +18,7 @@ $vlow = 25;
 <p>Open <a href="http://git.goeswhere.com/?p=hdds.git;a=summary">source</a>.  Data sourced from <a href="http://www.overclockers.co.uk/">Overclockers</a>.</p>
 <p>Values within <span class="hi"><?=$vhi?>%</span>, <span class="mid"><?=$vmid?>%</span> and <span class="low"><?=$vlow?>%</span> of the best are marked.  Hover links for names.</p>
 <?
+$mins = array();
 foreach (array( 'rotary' =>
 	array(
 		1952, // sata 6gbps
@@ -36,8 +37,10 @@ foreach (array( 'rotary' =>
 	foreach ($table as $sub) 
 		$str.=file_get_contents("http://www.overclockers.co.uk/productlist.php?groupid=701&catid=1660&subid={$sub}");
 
-	table($str);
+	$mins[] = table($str);
 }
+
+echo "<p>That is, ssds are " . $mins[1]/$mins[0] . " times the price of rotary media.</p>";
 
 function table($str) {
 	global $vlow,$vmid,$vhi;
@@ -96,6 +99,7 @@ function table($str) {
 	}
 
 	echo "</table>";
+	return $min;
 }
 
 function average(array $arr) {
