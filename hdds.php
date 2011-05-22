@@ -98,7 +98,7 @@ function table($str) {
 			"<td>" . count($drives) . "</td></tr>\n";
 	}
 
-	echo "</table>";
+	echo "</table>\n";
 	return $min;
 }
 
@@ -111,6 +111,5 @@ function price($num, $level = 2) {
 }
 
 ?>
-</table>
 </body>
 </html>
