@@ -53,6 +53,8 @@ function table($str) {
 	$url = array();
 	$name = array();
 	foreach ($regs[3] as $ind => $numpart) {
+		if (stristr($regs[2][$ind], 'hybrid'))
+			continue;
 		$key = ($regs[4][$ind] == 'T' ? 1000 : 1) * $numpart;
 		$price = $regs[5][$ind] * 1.2;
 		$bits[$key][] = $price;
