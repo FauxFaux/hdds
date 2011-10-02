@@ -28,8 +28,8 @@ foreach (array( 'rotary' =>
 		1665, // sata 1000-1500
 		1954, // sata 2000-
 	), 'ssd' => array (
-		1668, // ssd 30-100
-		1669, // ssd 120-480
+		910, // ssd 30-100
+		1427, // ssd 120-1000
 	)
 ) as $label => $table) {
 	echo "<h2>$label</h2>";
