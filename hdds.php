@@ -15,6 +15,7 @@ $vhi = 1;
 $vmid = 5;
 $vlow = 25;
 ?>
+<div style="float:left">
 <p>Open <a href="http://git.goeswhere.com/?p=hdds.git;a=summary">source</a>.  Data sourced from <a href="http://www.overclockers.co.uk/">Overclockers</a>.</p>
 <p>Values within <span class="hi"><?=$vhi?>%</span>, <span class="mid"><?=$vmid?>%</span> and <span class="low"><?=$vlow?>%</span> of the best are marked.  Hover links for names.</p>
 <?
@@ -113,5 +114,7 @@ function price($num, $level = 2) {
 }
 
 ?>
+</div>
+<img src="http://faux.uwcs.co.uk/hdd-grabs/plot.svg"/>
 </body>
 </html>
