@@ -23,7 +23,6 @@ $mins = array();
 foreach (array( 'rotary' =>
 	array(
 		1952, // sata 6gbps
-		1662, // sata 74-160
 		1663, // sata 250-320
 		1664, // sata 450-800
 		1665, // sata 1000-1500
