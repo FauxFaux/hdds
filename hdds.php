@@ -1,4 +1,8 @@
-<html><head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
   <title>Faux' hdds</title>
   <style type="text/css">
    td,th { border: 1px solid black; padding: .4em }
@@ -87,7 +91,7 @@ function table($str) {
 		echo "<tr" . ($size == $bestsiz ? ' class="hi"' : '') . ">" .
 			"<td>$size</td>" .
 			"<td><a " .
-				"href=\"http://www.overclockers.co.uk/{$url[$size][$cheap][0]}\" " .
+				"href=\"http://www.overclockers.co.uk/" . htmlentities($url[$size][$cheap][0]) . "\" " .
 				"title=\"{$name[$size][$cheap][0]}\">" .
 				price($cheap) . "</a></td>" .
 			"<td>" . price(average($drives)) . "</td>" .
@@ -114,6 +118,8 @@ function price($num, $level = 2) {
 
 ?>
 </div>
-<img src="http://faux.uwcs.co.uk/hdd-grabs/plot.svg"/>
+<div>
+<img src="http://faux.uwcs.co.uk/hdd-grabs/plot.svg" alt="plot of price/volume against time"/>
+</div>
 </body>
 </html>
