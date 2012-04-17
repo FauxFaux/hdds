@@ -51,7 +51,7 @@ function table($str) {
 	?>
 	<table><tr><th>Size (GB)</th><th>Cheapest</th><th>Average</th><th>Cheapest per GB</th><th>Average per GB</th><th>Sample size</th></tr>
 	<?
-	preg_match_all('/<a href="(showproduct[^"]+?)" title="(?:View more details for )?([^"]*?)".*?([0-9.]+)((?:T|G))B.*?<span class="incVat">\(&pound;(\d+\.\d+)/s', $str, $regs);
+	preg_match_all('/<a href="(showproduct[^"]+?)" title="(?:View more details for )?([^"]*?)">[^>]*?([0-9.]+)((?:T|G))B.*?<span class="incVat">\(&pound;(\d+\.\d+)/s', $str, $regs);
 
 	$bits = array();
 	$url = array();
