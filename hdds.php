@@ -39,7 +39,7 @@ foreach (array( 'rotary' =>
 	echo "<h2>$label</h2>";
 	$str = '';
 	foreach ($table as $sub) 
-		$str.=file_get_contents("http://www.overclockers.co.uk/productlist.php?groupid=701&catid=1660&subid={$sub}");
+		$str.=file_get_contents("http://www.overclockers.co.uk/productlist.php?groupid=701&catid=1660&subid={$sub}&rows=0");
 
 	$mins[] = table($str);
 }
