@@ -27,8 +27,7 @@ $mins = array();
 foreach (array( 'rotary' =>
 	array(
 		1952, // sata 6gbps
-		1663, // sata 250-320
-		1664, // sata 450-800
+		2271, // sata 160-750
 		1665, // sata 1000-1500
 		1954, // sata 2000-
 	), 'ssd' => array (
